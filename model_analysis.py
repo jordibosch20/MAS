@@ -42,7 +42,6 @@ axs.plot(y)
 axs.set_xlabel('Number of episodes',fontsize=15,labelpad=20)
 axs.set_ylabel('Average of 10 from the number of steps needed',fontsize=15,labelpad=20)
 
-axs.plot(y)
 #axs[0].hist(x, bins=n_bins)
 #axs[1].hist(y, bins=n_bins)
 plt.savefig("output_image/output_RL.png")
