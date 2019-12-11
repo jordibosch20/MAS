@@ -3,7 +3,7 @@ import numpy as np
 from matplotlib import colors
 from matplotlib.ticker import PercentFormatter
 import time
-
+#f
 N_points = 100000
 n_bins = 40
 
