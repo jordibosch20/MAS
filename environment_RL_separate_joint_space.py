@@ -25,7 +25,7 @@ class Env(tk.Tk):
 		#This stores a vector of shapes 
 		self.canvas = self._build_canvas()
 		self.texts = []
-		self.achieved = np.array([False,False,False,False])
+		self.achieved = [False,False,False,False]
 
 	def _build_canvas(self):
 		canvas = tk.Canvas(self, bg='white',
@@ -133,9 +133,11 @@ class Env(tk.Tk):
 						self.text_value(j, i, round(temp, 2), action)
 
 	def coords_to_state(self, coords):
-		x = int((coords[0] - 50) / 100)
-		y = int((coords[1] - 50) / 100)
-		return [x, y]
+		coords_actualized = coords[0:2]
+		#We only take the first 2 positions, since the other ones are the markers of touched positions
+		x = int((coords_actualized[0] - 50) / 100)
+		y = int((coords_actualized[1] - 50) / 100)
+		return ([x, y]+coords[2:])
 
 	def state_to_coords(self, state):
 		x = int(state[0] * 100 + 50)
@@ -144,7 +146,7 @@ class Env(tk.Tk):
 
 	def reset_1(self):
 		self.update()
-		self.achieved = np.array([False,False,False,False])
+		self.achieved = [False,False,False,False]
 		#time.sleep(0.0001)
 		x, y = self.canvas.coords(self.robot_1)
 		self.canvas.move(self.robot_1,-x + self.pos_robot_1_x, -y + self.pos_robot_1_y)
@@ -154,7 +156,7 @@ class Env(tk.Tk):
 
 	def reset_2(self):
 			self.update()
-			self.achieved = np.array([False,False,False,False])
+			self.achieved = [False,False,False,False]
 			#time.sleep(0.0001)
 			x, y = self.canvas.coords(self.robot_2)
 			self.canvas.move(self.robot_2,-x + self.pos_robot_2_x, -y + self.pos_robot_2_y)
@@ -217,7 +219,6 @@ class Env(tk.Tk):
 		if (next_state == self.canvas.coords(self.circle_1) and (not(self.achieved[0]))):
 			#print("TAMOS this means the next line should have a reward of 100")
 			reward = 50
-			
 			self.achieved[0] = True
 			#print("achieved 0")
 		elif (next_state == self.canvas.coords(self.circle_2) and (not(self.achieved[1]))):
@@ -231,6 +232,7 @@ class Env(tk.Tk):
 			#print("TAMOS this means the next line should have a reward of 100")
 			reward = 50
 			self.achieved[2] = True
+
 			#print("achieved 2")
 		elif next_state in [self.canvas.coords(self.triangle1),
 							self.canvas.coords(self.triangle2)]:
@@ -239,9 +241,10 @@ class Env(tk.Tk):
 		else:
 			reward = -1
 			done = False
-		#print("REWARD is",reward)
+
+		next_state = next_state + self.achieved[0:3]
 		next_state = self.coords_to_state(next_state)
-		return next_state, reward, self.achieved
+		return next_state, reward, np.array(self.achieved)
 
 	def step_2(self, action):
 		state = self.canvas.coords(self.robot_2)
@@ -316,9 +319,10 @@ class Env(tk.Tk):
 			reward = -1
 			done = False
 
+		next_state = next_state + self.achieved[0:3]
 		#print("REWARD is",reward)
 		next_state = self.coords_to_state(next_state)
-		return next_state, reward, self.achieved
+		return next_state, reward, np.array(self.achieved)
 
 
 	def render(self):
