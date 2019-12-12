@@ -57,8 +57,8 @@ if __name__ == "__main__":
 	agent_1 = QLearningAgent(actions=list(range(env.n_actions)))
 	agent_2 = QLearningAgent(actions=list(range(env.n_actions)))
 	for episode in range(1000):
-		state_1 = env.reset_1()
-		state_2 = env.reset_2()
+		state_1 = env.reset(1)
+		state_2 = env.reset(2)
 		counter = 0
 		while True:
 			counter += 1
@@ -87,7 +87,7 @@ if __name__ == "__main__":
 			if resultat[0] and resultat[1] and resultat[2]:
 				print(counter)
 				env.render()
-				#time.sleep(5)
+				time.sleep(2)
 				break
 			if resultat[3]:
 				env.render()

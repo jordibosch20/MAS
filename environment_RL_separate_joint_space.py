@@ -145,28 +145,28 @@ class Env(tk.Tk):
 		y = int(state[1] * 100 + 50)
 		return [x, y]
 
-	def reset_1(self):
+	def reset(self,robot):
 		#self.circle_1 = self.canvas.create_image(self.pos_target_1_x,self.pos_target_1_y,image=self.shapes[2])
 		#self.circle_2 = self.canvas.create_image(self.pos_target_2_x,self.pos_target_2_y,image=self.shapes[2])
 		#self.circle_3 = self.canvas.create_image(self.pos_target_3_x,self.pos_target_3_y,image=self.shapes[2])
-		self.update()
-		self.achieved = [False,False,False,False]
-		#time.sleep(0.0001)
-		x, y = self.canvas.coords(self.robot_1)
-		self.canvas.move(self.robot_1,-x + self.pos_robot_1_x, -y + self.pos_robot_1_y)
-		self.render()
-		# return observation
-		return self.coords_to_state(self.canvas.coords(self.robot_1)) + [0,0,0]
-
-	def reset_2(self):
-		self.update()
-		self.achieved = [False,False,False,False]
-		#time.sleep(0.0001)
-		x, y = self.canvas.coords(self.robot_2)
-		self.canvas.move(self.robot_2,-x + self.pos_robot_2_x, -y + self.pos_robot_2_y)
-		self.render()
-		# return observation
-		return self.coords_to_state(self.canvas.coords(self.robot_1)) + [0,0,0]
+		if (robot == 1):
+			self.update()
+			self.achieved = [False,False,False,False]
+			#time.sleep(0.0001)
+			x, y = self.canvas.coords(self.robot_1)
+			self.canvas.move(self.robot_1,-x + self.pos_robot_1_x, -y + self.pos_robot_1_y)
+			self.render()
+			# return observation
+			return self.coords_to_state(self.canvas.coords(self.robot_1)) + [0,0,0]
+		if (robot == 2):
+			self.update()
+			self.achieved = [False,False,False,False]
+			#time.sleep(0.0001)
+			x, y = self.canvas.coords(self.robot_2)
+			self.canvas.move(self.robot_2,-x + self.pos_robot_2_x, -y + self.pos_robot_2_y)
+			self.render()
+			# return observation
+			return self.coords_to_state(self.canvas.coords(self.robot_1)) + [0,0,0]
 
 
 	def step_1(self, action):
@@ -219,26 +219,19 @@ class Env(tk.Tk):
 		self.canvas.tag_raise(self.robot_1)
 		next_state = self.canvas.coords(self.robot_1)
 		reward = 0
-		# reward function
 		if (next_state == self.canvas.coords(self.circle_1) and (not(self.achieved[0]))):
 			#self.canvas.delete(self.circle_1)
-			#print("TAMOS this means the next line should have a reward of 100")
 			reward = 50
 			self.achieved[0] = True
 			#print("achieved 0")
 		elif (next_state == self.canvas.coords(self.circle_2) and (not(self.achieved[1]))):
-			#print("TAMOS this means the next line should have a reward of 100")
 			#self.canvas.delete(self.circle_2)
 			reward = 50
 			self.achieved[1] = True
-			#print("achieved 1")
 		elif (next_state == self.canvas.coords(self.circle_3) and (not(self.achieved[2]))):
 			#self.canvas.delete(self.circle_3)
-			#print("TAMOS this means the next line should have a reward of 100")
 			reward = 50
 			self.achieved[2] = True
-
-			#print("achieved 2")
 		elif next_state in [self.canvas.coords(self.triangle1),
 							self.canvas.coords(self.triangle2)]:
 			reward = -200
