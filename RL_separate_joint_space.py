@@ -12,41 +12,30 @@ class QLearningAgent:
 		self.learning_rate = 0.01
 		self.discount_factor = 0.9
 		self.epsilon = 0.1
-		self.q_table_1 = defaultdict(lambda: [0.0, 0.0, 0.0, 0.0,0.0,0.0,0.0,0.0])
-		self.q_table_2 = defaultdict(lambda: [0.0, 0.0, 0.0, 0.0,0.0,0.0,0.0,0.0])
+		self.q_table = defaultdict(lambda: [0.0, 0.0, 0.0, 0.0,0.0,0.0,0.0,0.0])
+		self.elig = defaultdict(lambda: [0.0, 0.0, 0.0, 0.0,0.0,0.0,0.0,0.0])
+
 
 	# update q function with sample <s, a, r, s'>
-	def learn_1(self, state, action, reward, next_state):
-		current_q = self.q_table_1[state][action]
+	def learn(self, state, action, reward, next_state):
+		#if(reward == 100):
+		#	print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+		current_q = self.q_table[state][action]
 		# using Bellman Optimality Equation to update q function
-		new_q = reward + self.discount_factor * max(self.q_table_1[next_state])
-		self.q_table_1[state][action] += self.learning_rate * (new_q - current_q)
-
-	def learn_2(self, state, action, reward, next_state):
-		current_q = self.q_table_2[state][action]
-		# using Bellman Optimality Equation to update q function
-		new_q = reward + self.discount_factor * max(self.q_table_2[next_state])
-		self.q_table_2[state][action] += self.learning_rate * (new_q - current_q)
-
+		new_q = reward + self.discount_factor * max(self.q_table[next_state])
+		#print(new_q)
+		self.q_table[state][action] += self.learning_rate * (new_q - current_q)
+		#print("This is the qtable")
+		#print(self.q_table)
 	# get action for the state according to the q function table
 	# agent pick action of epsilon-greedy policy
-	def get_action_1(self, state):
+	def get_action(self, state):
 		if np.random.rand() < self.epsilon:
 			# take random action
 			action = np.random.choice(self.actions)
 		else:
 			# take action according to the q function table
-			state_action = self.q_table_1[state]
-			action = self.arg_max(state_action)
-		return action
-
-	def get_action_2(self, state):
-		if np.random.rand() < self.epsilon:
-			# take random action
-			action = np.random.choice(self.actions)
-		else:
-			# take action according to the q function table
-			state_action = self.q_table_2[state]
+			state_action = self.q_table[state]
 			action = self.arg_max(state_action)
 		return action
 
@@ -76,23 +65,18 @@ if __name__ == "__main__":
 			env.render()
 
 			# take action and proceed one step in the environment
-			action_1 = agent_1.get_action_1(str(state_1))
+			action_1 = agent_1.get_action(str(state_1))
 			next_state_1, reward_1, done_1 = env.step_1(action_1)
-
-			# with sample <s,a,r,s'>, agent learns new q function
-			agent_1.learn_1(str(state_1), action_1, reward_1, str(next_state_1))
-
+			agent_1.learn(str(state_1), action_1, reward_1, str(next_state_1))
+			
 			state_1 = next_state_1
-			env.print_value_all(agent_1.q_table_1)
+			env.print_value_all(agent_1.q_table)
 
 			#Here it starts Agent 2
+			action_2 = agent_2.get_action(str(state_2))
 
-			action_2 = agent_2.get_action_2(str(state_2))
 			next_state_2, reward_2, done_2 = env.step_2(action_2)
-
-			# with sample <s,a,r,s'>, agent learns new q function
-			agent_2.learn_2(str(state_2), action_2, reward_2, str(next_state_2))
-
+			agent_2.learn(str(state_2), action_2, reward_2, str(next_state_2))
 			state_2 = next_state_2
 			#env.print_value_all(agent_2.q_table_2)
 
