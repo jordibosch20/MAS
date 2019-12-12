@@ -63,7 +63,7 @@ if __name__ == "__main__":
 		while True:
 			counter += 1
 			env.render()
-
+			#time.sleep(0.1)
 			# take action and proceed one step in the environment
 			action_1 = agent_1.get_action(str(state_1))
 			next_state_1, reward_1, done_1 = env.step_1(action_1)
@@ -91,6 +91,6 @@ if __name__ == "__main__":
 				break
 			if resultat[3]:
 				env.render()
-				#print("BAD:",counter)
+				print("BAD:",counter)
 				#time.sleep(0.00005)
 				break

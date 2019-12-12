@@ -129,6 +129,7 @@ class Env(tk.Tk):
 				for action in range(0, 8):
 					state = [i, j]
 					if str(state) in q_table.keys():
+						#In my case it never happens
 						temp = q_table[str(state)][action]
 						self.text_value(j, i, round(temp, 2), action)
 
@@ -145,6 +146,9 @@ class Env(tk.Tk):
 		return [x, y]
 
 	def reset_1(self):
+		#self.circle_1 = self.canvas.create_image(self.pos_target_1_x,self.pos_target_1_y,image=self.shapes[2])
+		#self.circle_2 = self.canvas.create_image(self.pos_target_2_x,self.pos_target_2_y,image=self.shapes[2])
+		#self.circle_3 = self.canvas.create_image(self.pos_target_3_x,self.pos_target_3_y,image=self.shapes[2])
 		self.update()
 		self.achieved = [False,False,False,False]
 		#time.sleep(0.0001)
@@ -155,14 +159,14 @@ class Env(tk.Tk):
 		return self.coords_to_state(self.canvas.coords(self.robot_1)) + [0,0,0]
 
 	def reset_2(self):
-			self.update()
-			self.achieved = [False,False,False,False]
-			#time.sleep(0.0001)
-			x, y = self.canvas.coords(self.robot_2)
-			self.canvas.move(self.robot_2,-x + self.pos_robot_2_x, -y + self.pos_robot_2_y)
-			self.render()
-			# return observation
-			return self.coords_to_state(self.canvas.coords(self.robot_1)) + [0,0,0]
+		self.update()
+		self.achieved = [False,False,False,False]
+		#time.sleep(0.0001)
+		x, y = self.canvas.coords(self.robot_2)
+		self.canvas.move(self.robot_2,-x + self.pos_robot_2_x, -y + self.pos_robot_2_y)
+		self.render()
+		# return observation
+		return self.coords_to_state(self.canvas.coords(self.robot_1)) + [0,0,0]
 
 
 	def step_1(self, action):
@@ -217,18 +221,19 @@ class Env(tk.Tk):
 		reward = 0
 		# reward function
 		if (next_state == self.canvas.coords(self.circle_1) and (not(self.achieved[0]))):
+			#self.canvas.delete(self.circle_1)
 			#print("TAMOS this means the next line should have a reward of 100")
 			reward = 50
 			self.achieved[0] = True
 			#print("achieved 0")
 		elif (next_state == self.canvas.coords(self.circle_2) and (not(self.achieved[1]))):
 			#print("TAMOS this means the next line should have a reward of 100")
-
+			#self.canvas.delete(self.circle_2)
 			reward = 50
 			self.achieved[1] = True
 			#print("achieved 1")
-		elif (next_state == self.canvas.coords(self.circle_1) and (not(self.achieved[2]))):
-
+		elif (next_state == self.canvas.coords(self.circle_3) and (not(self.achieved[2]))):
+			#self.canvas.delete(self.circle_3)
 			#print("TAMOS this means the next line should have a reward of 100")
 			reward = 50
 			self.achieved[2] = True
@@ -300,13 +305,16 @@ class Env(tk.Tk):
 		# reward function
 		if (next_state == self.canvas.coords(self.circle_1) and (not(self.achieved[0]))):
 			#print("TAMOS this means the next line should have a reward of 100")
+			#self.canvas.delete(self.circle_1)
 			reward = 50
 			self.achieved[0] = True
 		elif (next_state == self.canvas.coords(self.circle_2) and (not(self.achieved[1]))):
 			#print("TAMOS this means the next line should have a reward of 100")
+			#self.canvas.delete(self.circle_2)
 			reward = 50
 			self.achieved[1] = True
-		elif (next_state == self.canvas.coords(self.circle_1) and (not(self.achieved[2]))):
+		elif (next_state == self.canvas.coords(self.circle_3) and (not(self.achieved[2]))):
+			#self.canvas.delete(self.circle_3)
 			#print("TAMOS this means the next line should have a reward of 100")
 			reward = 50
 			self.achieved[2] = True
@@ -318,7 +326,7 @@ class Env(tk.Tk):
 		else:
 			reward = -1
 			done = False
-
+		time.sleep(0.1)
 		next_state = next_state + self.achieved[0:3]
 		#print("REWARD is",reward)
 		next_state = self.coords_to_state(next_state)
