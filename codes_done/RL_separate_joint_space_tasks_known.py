@@ -57,13 +57,13 @@ if __name__ == "__main__":
 	agent_1 = QLearningAgent(actions=list(range(env.n_actions)))
 	agent_2 = QLearningAgent(actions=list(range(env.n_actions)))
 	for episode in range(1000):
-		state_1 = env.reset(1,episode)
-		state_2 = env.reset(2,episode)
+		state_1 = env.reset_1()
+		state_2 = env.reset_2()
 		counter = 0
 		while True:
 			counter += 1
 			env.render()
-			#time.sleep(0.1)
+
 			# take action and proceed one step in the environment
 			action_1 = agent_1.get_action(str(state_1))
 			next_state_1, reward_1, done_1 = env.step_1(action_1)
@@ -82,16 +82,15 @@ if __name__ == "__main__":
 
 
 			# if episode ends, then break
-			resultat = np.logical_or(done_1,done_2)
-			print("el resultat es", resultat)
 
+			resultat = np.logical_or(done_1,done_2)
 			if resultat[0] and resultat[1] and resultat[2]:
 				print(counter)
 				env.render()
-				time.sleep(2)
+				#time.sleep(5)
 				break
 			if resultat[3]:
 				env.render()
-				print("BAD:",counter)
+				#print("BAD:",counter)
 				#time.sleep(0.00005)
 				break

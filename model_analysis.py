@@ -7,7 +7,7 @@ import time
 N_points = 100000
 n_bins = 40
 
-file = open("output_file/output_RL_1.txt","r")
+file = open("sortidatemporal.txt","r")
 suma_prova = 0
 x = np.array([])
 

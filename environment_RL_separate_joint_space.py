@@ -28,6 +28,8 @@ class Env(tk.Tk):
 		self.achieved = [False,False,False,False]
 
 	def _build_canvas(self):
+
+		print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
 		canvas = tk.Canvas(self, bg='white',
 						   height=HEIGHT * UNIT,
 						   width=WIDTH * UNIT)
@@ -145,12 +147,20 @@ class Env(tk.Tk):
 		y = int(state[1] * 100 + 50)
 		return [x, y]
 
-	def reset(self,robot):
-		#self.circle_1 = self.canvas.create_image(self.pos_target_1_x,self.pos_target_1_y,image=self.shapes[2])
-		#self.circle_2 = self.canvas.create_image(self.pos_target_2_x,self.pos_target_2_y,image=self.shapes[2])
-		#self.circle_3 = self.canvas.create_image(self.pos_target_3_x,self.pos_target_3_y,image=self.shapes[2])
+	def reset(self,robot,episode):
+		
 		if (robot == 1):
-			self.update()
+			if (episode != 0):
+				print("we have entered to the reset")
+				time.sleep(0.3)
+				print("holaaaaaa")
+				self.circle_1 = self.canvas.create_image(self.pos_target_1_x,self.pos_target_1_y,image=self.shapes[2])
+				print("EL VALOR DEL CERCLE ES",self.circle_1)
+				self.circle_2 = self.canvas.create_image(self.pos_target_2_x,self.pos_target_2_y,image=self.shapes[2])
+				self.circle_3 = self.canvas.create_image(self.pos_target_3_x,self.pos_target_3_y,image=self.shapes[2])
+				#self.canvas.pack()
+
+			self.update_idletasks()
 			self.achieved = [False,False,False,False]
 			#time.sleep(0.0001)
 			x, y = self.canvas.coords(self.robot_1)
@@ -159,7 +169,7 @@ class Env(tk.Tk):
 			# return observation
 			return self.coords_to_state(self.canvas.coords(self.robot_1)) + [0,0,0]
 		if (robot == 2):
-			self.update()
+			self.update_idletasks()
 			self.achieved = [False,False,False,False]
 			#time.sleep(0.0001)
 			x, y = self.canvas.coords(self.robot_2)
@@ -212,7 +222,6 @@ class Env(tk.Tk):
 				base_action[0] -= UNIT
 				base_action[1] -= UNIT
 
-		
 		# move agent
 		self.canvas.move(self.robot_1, base_action[0], base_action[1])
 		# move robot_1 to top level of canvas
@@ -220,18 +229,20 @@ class Env(tk.Tk):
 		next_state = self.canvas.coords(self.robot_1)
 		reward = 0
 		if (next_state == self.canvas.coords(self.circle_1) and (not(self.achieved[0]))):
-			#self.canvas.delete(self.circle_1)
+			self.canvas.delete(self.circle_1)
 			reward = 50
 			self.achieved[0] = True
-			#print("achieved 0")
+
 		elif (next_state == self.canvas.coords(self.circle_2) and (not(self.achieved[1]))):
-			#self.canvas.delete(self.circle_2)
+			self.canvas.delete(self.circle_2)
 			reward = 50
 			self.achieved[1] = True
+
 		elif (next_state == self.canvas.coords(self.circle_3) and (not(self.achieved[2]))):
-			#self.canvas.delete(self.circle_3)
+			self.canvas.delete(self.circle_3)
 			reward = 50
 			self.achieved[2] = True
+
 		elif next_state in [self.canvas.coords(self.triangle1),
 							self.canvas.coords(self.triangle2)]:
 			reward = -200
@@ -239,7 +250,7 @@ class Env(tk.Tk):
 		else:
 			reward = -1
 			done = False
-
+		time.sleep(0.2)
 		next_state = next_state + self.achieved[0:3]
 		next_state = self.coords_to_state(next_state)
 		return next_state, reward, np.array(self.achieved)
@@ -297,18 +308,20 @@ class Env(tk.Tk):
 		reward = 0
 		# reward function
 		if (next_state == self.canvas.coords(self.circle_1) and (not(self.achieved[0]))):
-			#print("TAMOS this means the next line should have a reward of 100")
-			#self.canvas.delete(self.circle_1)
+			
+			self.canvas.delete(self.circle_1)
 			reward = 50
 			self.achieved[0] = True
+
 		elif (next_state == self.canvas.coords(self.circle_2) and (not(self.achieved[1]))):
-			#print("TAMOS this means the next line should have a reward of 100")
-			#self.canvas.delete(self.circle_2)
+			
+			self.canvas.delete(self.circle_2)
 			reward = 50
 			self.achieved[1] = True
+
 		elif (next_state == self.canvas.coords(self.circle_3) and (not(self.achieved[2]))):
-			#self.canvas.delete(self.circle_3)
-			#print("TAMOS this means the next line should have a reward of 100")
+			
+			self.canvas.delete(self.circle_3)
 			reward = 50
 			self.achieved[2] = True
 
@@ -316,10 +329,10 @@ class Env(tk.Tk):
 							self.canvas.coords(self.triangle2)]:
 			reward = -100
 			self.achieved[3] = True
+
 		else:
 			reward = -1
 			done = False
-		time.sleep(0.1)
 		next_state = next_state + self.achieved[0:3]
 		#print("REWARD is",reward)
 		next_state = self.coords_to_state(next_state)
@@ -328,7 +341,7 @@ class Env(tk.Tk):
 
 	def render(self):
 		#time.sleep(0.00001)
-		self.update()
+		self.update_idletasks()
 
 	def get_achieved(self):
 		return self.achieved
