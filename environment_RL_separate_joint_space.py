@@ -345,3 +345,4 @@ class Env(tk.Tk):
 
 	def get_achieved(self):
 		return self.achieved
+		
