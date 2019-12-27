@@ -36,7 +36,7 @@ for i in x:
 		sum = 0
 		#We group the data in the averages of 10
 #Right now the vector y has the averages 10 by 10
-fig.suptitle("Result of diferent brains and separate joint action space",fontsize=16)
+fig.suptitle("Result of diferent brains and shared task information using eligibility traces",fontsize=16)
 axs.plot(y)
 #axs.set_title('subplot 1')
 axs.set_xlabel('Number of episodes',fontsize=15,labelpad=20)

@@ -4,7 +4,7 @@ import random
 import tkinter as tk
 from PIL import ImageTk, Image
 #h
-np.random.seed(1)
+np.random.seed(1) 
 PhotoImage = ImageTk.PhotoImage
 UNIT = 100  # pixels
 HEIGHT =  10  # grid height
@@ -29,7 +29,6 @@ class Env(tk.Tk):
 
 	def _build_canvas(self):
 
-		print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
 		canvas = tk.Canvas(self, bg='white',
 						   height=HEIGHT * UNIT,
 						   width=WIDTH * UNIT)
@@ -151,11 +150,11 @@ class Env(tk.Tk):
 		
 		if (robot == 1):
 			if (episode != 0):
-				print("we have entered to the reset")
-				time.sleep(0.3)
-				print("holaaaaaa")
+				#print("we have entered to the reset")
+				#time.sleep(0.3)
+				#print("holaaaaaa")
 				self.circle_1 = self.canvas.create_image(self.pos_target_1_x,self.pos_target_1_y,image=self.shapes[2])
-				print("EL VALOR DEL CERCLE ES",self.circle_1)
+				#print("EL VALOR DEL CERCLE ES",self.circle_1)
 				self.circle_2 = self.canvas.create_image(self.pos_target_2_x,self.pos_target_2_y,image=self.shapes[2])
 				self.circle_3 = self.canvas.create_image(self.pos_target_3_x,self.pos_target_3_y,image=self.shapes[2])
 				#self.canvas.pack()
@@ -250,7 +249,7 @@ class Env(tk.Tk):
 		else:
 			reward = -1
 			done = False
-		time.sleep(0.2)
+		#time.sleep(0.2)
 		next_state = next_state + self.achieved[0:3]
 		next_state = self.coords_to_state(next_state)
 		return next_state, reward, np.array(self.achieved)
