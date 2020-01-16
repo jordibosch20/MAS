@@ -6,9 +6,9 @@ from PIL import ImageTk, Image
 #h
 np.random.seed(1) 
 PhotoImage = ImageTk.PhotoImage
-UNIT = 100  # pixels
-HEIGHT =  10  # grid height
-WIDTH = 10  # grid width
+UNIT = 50  # pixels
+HEIGHT =  30  # grid height
+WIDTH = 30  # grid width
 
 
 class Env(tk.Tk):
@@ -27,6 +27,7 @@ class Env(tk.Tk):
 		self.texts = []
 		self.achieved = [False,False,False,False]
 
+
 	def _build_canvas(self):
 
 		canvas = tk.Canvas(self, bg='white',
@@ -40,26 +41,168 @@ class Env(tk.Tk):
 			x0, y0, x1, y1 = 0, r, HEIGHT * UNIT, r
 			canvas.create_line(x0, y0, x1, y1)
 
+		self.s = set()
+		#We are gonna have a set with all the model cells
 
-		self.pos_robot_1_x = UNIT*int(WIDTH*((random.random()))) + UNIT/2
-		self.pos_robot_1_y = UNIT*int(HEIGHT*((random.random()))) + UNIT/2
-		self.pos_robot_2_x = UNIT*int(WIDTH*((random.random()))) + UNIT/2
-		self.pos_robot_2_y = UNIT*int(HEIGHT*((random.random()))) + UNIT/2
-		self.pos_obstacle_1_x = UNIT*int(WIDTH*((random.random()))) + UNIT/2
-		self.pos_obstacle_1_y = UNIT*int(HEIGHT*((random.random()))) + UNIT/2
-		self.pos_obstacle_2_x = UNIT*int(WIDTH*((random.random()))) + UNIT/2
-		self.pos_obstacle_2_y = UNIT*int(HEIGHT*((random.random()))) + UNIT/2
-		self.pos_target_1_x = UNIT*int(WIDTH*((random.random()))) + UNIT/2
-		self.pos_target_1_y = UNIT*int(HEIGHT*((random.random()))) + UNIT/2
-		self.pos_target_2_x = UNIT*int(WIDTH*((random.random()))) + UNIT/2
-		self.pos_target_2_y = UNIT*int(HEIGHT*((random.random()))) + UNIT/2
-		self.pos_target_3_x = UNIT*int(WIDTH*((random.random()))) + UNIT/2
-		self.pos_target_3_y = UNIT*int(HEIGHT*((random.random()))) + UNIT/2
+		#Now we are gonna initialize the lab
+		#LEFT DOWN INITIALIZE
+		for i in range(11,30):
+			self.model1 = canvas.create_image(0.5*UNIT,(i+0.5)*UNIT,image=self.shapes[4])
+			self.s.add((0.5*UNIT,(i+0.5)*UNIT))
 
-		#print("la posicion del robot es",self.pos_robot_1_x,',',self.pos_robot_1_y,)
-		#print("la posicion del obstacle es",self.pos_obstacle_1_x,',',self.pos_obstacle_1_y,)
-		#print("la posicion del obstacle es",self.pos_obstacle_1_x,',',self.pos_obstacle_1_y,)
-		#print("la posicion del target es",self.pos_target_1_x,',',self.pos_target_1_y,)
+		for i in range(11,30):
+			self.model1 = canvas.create_image(1.5*UNIT,(i+0.5)*UNIT,image=self.shapes[4])
+			self.s.add((1.5*UNIT,(i+0.5)*UNIT))
+
+		for i in range(11,30):
+			self.model1 = canvas.create_image(2.5*UNIT,(i+0.5)*UNIT,image=self.shapes[4])
+			self.s.add((2.5*UNIT,(i+0.5)*UNIT))
+
+		for i in range(1,9):
+			self.model1 = canvas.create_image((i-0.5)*UNIT,10.5*UNIT,image=self.shapes[4])
+			self.s.add(((i-0.5)*UNIT,10.5*UNIT))
+
+		for i in range(1,9):
+			self.model1 = canvas.create_image((i-0.5)*UNIT,9.5*UNIT,image=self.shapes[4])
+			self.s.add(((i-0.5)*UNIT,9.5*UNIT))
+
+		for i in range(0,4):
+			self.model1 = canvas.create_image(6.5*UNIT,(i+0.5)*UNIT,image = self.shapes[4])
+			self.s.add((6.5*UNIT,(i+0.5)*UNIT))
+
+		for i in range(0,4):
+			self.model1 = canvas.create_image(7.5*UNIT,(i+0.5)*UNIT,image = self.shapes[4])
+			self.s.add((7.5*UNIT,(i+0.5)*UNIT))
+
+		for i in range(0,4):
+			self.model1 = canvas.create_image(8.5*UNIT,(i+0.5)*UNIT,image = self.shapes[4])
+			self.s.add((8.5*UNIT,(i+0.5)*UNIT))
+
+		#RIGHT DOWN
+		for i in range(13,30):
+			self.model1 = canvas.create_image(29.5*UNIT,(i+0.5)*UNIT,image=self.shapes[4])
+			self.s.add((29.5*UNIT,(i+0.5)*UNIT))
+
+		for i in range(13,30):
+			self.model1 = canvas.create_image(28.5*UNIT,(i+0.5)*UNIT,image=self.shapes[4])
+			self.s.add((28.5*UNIT,(i+0.5)*UNIT))
+
+		for i in range(13,30):
+			self.model1 = canvas.create_image(27.5*UNIT,(i+0.5)*UNIT,image=self.shapes[4])
+			self.s.add((27.5*UNIT,(i+0.5)*UNIT))
+
+		#RIGHT UP
+		for i in range(3,9):
+			self.model1 = canvas.create_image(18.5*UNIT,(i+0.5)*UNIT,image=self.shapes[4])	
+			self.s.add((18.5*UNIT,(i+0.5)*UNIT))
+
+		for i in range(3,9):
+			self.model1 = canvas.create_image(19.5*UNIT,(i+0.5)*UNIT,image=self.shapes[4])
+			self.s.add((19.5*UNIT,(i+0.5)*UNIT))
+
+		for i in range(3,9):
+			self.model1 = canvas.create_image(20.5*UNIT,(i+0.5)*UNIT,image=self.shapes[4])
+			self.s.add((20.5*UNIT,(i+0.5)*UNIT))
+
+		for i in range(3,9):
+			self.model1 = canvas.create_image(21.5*UNIT,(i+0.5)*UNIT,image=self.shapes[4])
+			self.s.add((21.5*UNIT,(i+0.5)*UNIT))
+
+		for i in range(3,9):
+			self.model1 = canvas.create_image(22.5*UNIT,(i+0.5)*UNIT,image=self.shapes[4])
+			self.s.add((22.5*UNIT,(i+0.5)*UNIT))
+
+		for i in range(3,9):
+			self.model1 = canvas.create_image(23.5*UNIT,(i+0.5)*UNIT,image=self.shapes[4])
+			self.s.add((23.5*UNIT,(i+0.5)*UNIT))
+
+		for i in range(3,9):
+			self.model1 = canvas.create_image(24.5*UNIT,(i+0.5)*UNIT,image=self.shapes[4])
+			self.s.add((24.5*UNIT,(i+0.5)*UNIT))
+
+		for i in range(3,9):
+			self.model1 = canvas.create_image(25.5*UNIT,(i+0.5)*UNIT,image=self.shapes[4])
+			self.s.add((25.5*UNIT,(i+0.5)*UNIT))
+
+		for i in range(3,9):
+			self.model1 = canvas.create_image(26.5*UNIT,(i+0.5)*UNIT,image=self.shapes[4])
+			self.s.add((26.5*UNIT,(i+0.5)*UNIT))
+
+		#MEDIUM
+
+		for i in range(12,18):
+			self.model1 = canvas.create_image((i+0.5)*UNIT,22.5*UNIT,image = self.shapes[4])
+			self.s.add(((i+0.5)*UNIT,22.5*UNIT))
+
+		for i in range(12,18):
+			self.model1 = canvas.create_image((i+0.5)*UNIT,21.5*UNIT,image = self.shapes[4])
+			self.s.add(((i+0.5)*UNIT,21.5*UNIT))
+
+		for i in range(12,18):
+			self.model1 = canvas.create_image((i+0.5)*UNIT,20.5*UNIT,image = self.shapes[4])
+			self.s.add(((i+0.5)*UNIT,20.5*UNIT))
+
+		for i in range(12,18):
+			self.model1 = canvas.create_image((i+0.5)*UNIT,19.5*UNIT,image = self.shapes[4])
+			self.s.add(((i+0.5)*UNIT,19.5*UNIT))
+
+		for i in range(12,18):
+			self.model1 = canvas.create_image((i+0.5)*UNIT,18.5*UNIT,image = self.shapes[4])
+			self.s.add(((i+0.5)*UNIT,18.5*UNIT))
+
+		for i in range(12,18):
+			self.model1 = canvas.create_image((i+0.5)*UNIT,17.5*UNIT,image = self.shapes[4])
+			self.s.add(((i+0.5)*UNIT,17.5*UNIT))
+
+		prova = True
+		while(prova):
+			self.pos_robot_1_x = UNIT*int(WIDTH*((random.random()))) + UNIT/2
+			self.pos_robot_1_y = UNIT*int(HEIGHT*((random.random()))) + UNIT/2
+			if ((self.pos_robot_1_x,self.pos_robot_1_y) not in self.s):
+				prova = False
+
+		prova = True
+		while(prova):
+			self.pos_robot_2_x = UNIT*int(WIDTH*((random.random()))) + UNIT/2
+			self.pos_robot_2_y = UNIT*int(HEIGHT*((random.random()))) + UNIT/2
+			if ((self.pos_robot_2_x,self.pos_robot_2_y) not in self.s):
+				prova = False
+
+		prova = True
+		while(prova):
+			self.pos_target_1_x = UNIT*int(WIDTH*((random.random()))) + UNIT/2
+			self.pos_target_1_y = UNIT*int(HEIGHT*((random.random()))) + UNIT/2
+			if ((self.pos_target_1_x,self.pos_target_1_y) not in self.s):
+				prova = False
+
+		prova = True
+		while(prova):
+			self.pos_target_2_x = UNIT*int(WIDTH*((random.random()))) + UNIT/2
+			self.pos_target_2_y = UNIT*int(HEIGHT*((random.random()))) + UNIT/2
+			if ((self.pos_target_2_x,self.pos_target_2_y) not in self.s):
+				prova = False
+
+		prova = True
+		while(prova):
+			self.pos_target_3_x = UNIT*int(WIDTH*((random.random()))) + UNIT/2
+			self.pos_target_3_y = UNIT*int(HEIGHT*((random.random()))) + UNIT/2
+			if ((self.pos_target_3_x,self.pos_target_3_y) not in self.s):
+				prova = False
+
+		prova = True
+		while(prova):
+			self.pos_obstacle_1_x = UNIT*int(WIDTH*((random.random()))) + UNIT/2
+			self.pos_obstacle_1_y = UNIT*int(HEIGHT*((random.random()))) + UNIT/2
+			if ((self.pos_obstacle_1_x,self.pos_obstacle_1_y) not in self.s):
+				prova = False
+
+		prova = True
+		while(prova):
+			self.pos_obstacle_2_x = UNIT*int(WIDTH*((random.random()))) + UNIT/2
+			self.pos_obstacle_2_y = UNIT*int(HEIGHT*((random.random()))) + UNIT/2
+			if ((self.pos_obstacle_2_x,self.pos_obstacle_2_y) not in self.s):
+				prova = False
+		
 
 		# add img to canvas
 		self.robot_1 = canvas.create_image(self.pos_robot_1_x,self.pos_robot_1_y,image=self.shapes[0])
@@ -69,11 +212,13 @@ class Env(tk.Tk):
 		self.circle_1 = canvas.create_image(self.pos_target_1_x,self.pos_target_1_y,image=self.shapes[2])
 		self.circle_2 = canvas.create_image(self.pos_target_2_x,self.pos_target_2_y,image=self.shapes[2])
 		self.circle_3 = canvas.create_image(self.pos_target_3_x,self.pos_target_3_y,image=self.shapes[2])
+		
 
 		# pack all
 		canvas.pack()
 
 		return canvas
+
 
 	def load_images(self):
 		rectangle = PhotoImage(
@@ -84,8 +229,10 @@ class Env(tk.Tk):
 			Image.open("img/circle.png").resize((65, 65)))
 		drako = PhotoImage(
 			Image.open("img/drako.jpg").resize((65, 65)))
+		square = PhotoImage(
+			Image.open("img/square.png").resize((50, 50)))
 		
-		return rectangle, triangle, circle,drako
+		return rectangle, triangle, circle,drako,square
 
 	def text_value(self, row, col, contents, action, font='Helvetica', size=4,style='normal', anchor="nw"):
 
@@ -184,42 +331,51 @@ class Env(tk.Tk):
 		self.render()
 		#0-up,1-down,2-rigth,3-down
 		if action == 0:  # up
+		#See if the new position would led us to a non valid place
 			if state[1] > UNIT:
-				base_action[1] -= UNIT
+				if ((state[0],state[1]-UNIT) not in self.s):
+					base_action[1] -= UNIT			
 
 		#The condition for going upright is simple (going up and right)
 		if action == 1:  # upright
 			if (state[1] > UNIT and  state[0] < (WIDTH - 1) * UNIT):
-				base_action[1] -= UNIT
-				base_action[0] += UNIT
+				if ((state[0] + UNIT,state[1]-UNIT) not in self.s):
+					base_action[1] -= UNIT
+					base_action[0] += UNIT
 
 		elif action == 2:  # right
 			if state[0] < (WIDTH - 1) * UNIT:
-				base_action[0] += UNIT
+				if ((state[0]+UNIT,state[1]) not in self.s):
+					base_action[0] += UNIT
 
 		elif action == 3:  # rightdown
 			if (state[0] < (WIDTH - 1) * UNIT and state[1] < (HEIGHT - 1) * UNIT):
-				base_action[0] += UNIT
-				base_action[1] += UNIT
+				if ((state[0]+UNIT,state[1]+UNIT) not in self.s):
+					base_action[0] += UNIT
+					base_action[1] += UNIT
 
 		#We want to add the case
 		elif action == 4:  # down
 			if state[1] < (HEIGHT - 1) * UNIT:
-				base_action[1] += UNIT
+				if ((state[0],state[1]+UNIT) not in self.s):
+					base_action[1] += UNIT
 
 		elif action == 5:  # downleft
 			if (state[0] < (WIDTH - 1) * UNIT and state[0] > UNIT):
-				base_action[1] += UNIT
-				base_action[0] -= UNIT
+				if ((state[0]-UNIT,state[1]+UNIT) not in self.s):
+					base_action[1] += UNIT
+					base_action[0] -= UNIT
 
 		elif action == 6:  # left
 			if state[0] > UNIT:
-				base_action[0] -= UNIT
+				if ((state[0]-UNIT,state[1])not in self.s):
+					base_action[0] -= UNIT
 
 		elif action == 7:  # leftup
 			if (state[0] > UNIT and state[1] > UNIT):
-				base_action[0] -= UNIT
-				base_action[1] -= UNIT
+				if ((state[0]-UNIT,state[1]-UNIT)not in self.s):
+					base_action[0] -= UNIT
+					base_action[1] -= UNIT
 
 		# move agent
 		self.canvas.move(self.robot_1, base_action[0], base_action[1])
@@ -229,17 +385,17 @@ class Env(tk.Tk):
 		reward = 0
 		if (next_state == self.canvas.coords(self.circle_1) and (not(self.achieved[0]))):
 			self.canvas.delete(self.circle_1)
-			reward = 50
+			reward = 100
 			self.achieved[0] = True
 
 		elif (next_state == self.canvas.coords(self.circle_2) and (not(self.achieved[1]))):
 			self.canvas.delete(self.circle_2)
-			reward = 50
+			reward = 100
 			self.achieved[1] = True
 
 		elif (next_state == self.canvas.coords(self.circle_3) and (not(self.achieved[2]))):
 			self.canvas.delete(self.circle_3)
-			reward = 50
+			reward = 100
 			self.achieved[2] = True
 
 		elif next_state in [self.canvas.coords(self.triangle1),
@@ -262,41 +418,50 @@ class Env(tk.Tk):
 		#0-up,1-down,2-rigth,3-down
 		if action == 0:  # up
 			if state[1] > UNIT:
-				base_action[1] -= UNIT
+				if ((state[0],state[1]-UNIT) not in self.s):
+					base_action[1] -= UNIT
 
 		#The condition for going upright is simple (going up and right)
 		if action == 1:  # upright
 			if (state[1] > UNIT and  state[0] < (WIDTH - 1) * UNIT):
-				base_action[1] -= UNIT
-				base_action[0] += UNIT
+				if ((state[0] + UNIT,state[1]-UNIT) not in self.s):
+					base_action[1] -= UNIT
+					base_action[0] += UNIT
 
 		elif action == 2:  # right
 			if state[0] < (WIDTH - 1) * UNIT:
-				base_action[0] += UNIT
+				if ((state[0]+UNIT,state[1]) not in self.s):
+					base_action[0] += UNIT
 
 		elif action == 3:  # rightdown
 			if (state[0] < (WIDTH - 1) * UNIT and state[1] < (HEIGHT - 1) * UNIT):
-				base_action[0] += UNIT
-				base_action[1] += UNIT
+				if ((state[0]+UNIT,state[1]+UNIT)not in self.s):
+					base_action[0] += UNIT
+					base_action[1] += UNIT
 
 		#We want to add the case
 		elif action == 4:  # down
 			if state[1] < (HEIGHT - 1) * UNIT:
-				base_action[1] += UNIT
+				if ((state[0],state[1]+UNIT)):
+					base_action[1] += UNIT
 
 		elif action == 5:  # downleft
 			if (state[0] < (WIDTH - 1) * UNIT and state[0] > UNIT):
-				base_action[1] += UNIT
-				base_action[0] -= UNIT
+				if ((state[0]-UNIT,state[1]+UNIT)not in self.s):
+					base_action[1] += UNIT
+					base_action[0] -= UNIT
 
 		elif action == 6:  # left
 			if state[0] > UNIT:
-				base_action[0] -= UNIT
+				if ((state[0]-UNIT,state[1])not in self.s):
+					base_action[0] -= UNIT
+
 
 		elif action == 7:  # leftup
 			if (state[0] > UNIT and state[1] > UNIT):
-				base_action[0] -= UNIT
-				base_action[1] -= UNIT
+				if ((state[0]-UNIT,state[1]-UNIT)not in self.s):
+					base_action[0] -= UNIT
+					base_action[1] -= UNIT
 
 		
 		# move agent
@@ -309,19 +474,19 @@ class Env(tk.Tk):
 		if (next_state == self.canvas.coords(self.circle_1) and (not(self.achieved[0]))):
 			
 			self.canvas.delete(self.circle_1)
-			reward = 50
+			reward = 100
 			self.achieved[0] = True
 
 		elif (next_state == self.canvas.coords(self.circle_2) and (not(self.achieved[1]))):
 			
 			self.canvas.delete(self.circle_2)
-			reward = 50
+			reward = 100
 			self.achieved[1] = True
 
 		elif (next_state == self.canvas.coords(self.circle_3) and (not(self.achieved[2]))):
 			
 			self.canvas.delete(self.circle_3)
-			reward = 50
+			reward = 100
 			self.achieved[2] = True
 
 		elif next_state in [self.canvas.coords(self.triangle1),

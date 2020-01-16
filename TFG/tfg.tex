@@ -2,6 +2,8 @@
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
 \usepackage{float}
+\usepackage{svg}
+
 \usepackage{amssymb}
 \usepackage{amsmath}
 
@@ -11,9 +13,53 @@
 
 \begin{document}
 
+
+\begin{titlepage}
+	
+	\hspace{0.071cm}\includegraphics[width=0.5\textwidth]{img/logo_CFIS.jpg}\hspace{0.2cm}
+	\includegraphics[scale=0.25]{img/hcrl.png}	
+	\par\vspace{0.4cm}
+	\hspace{0.13cm}\includegraphics[scale=0.061125]{img/logo_FIB.jpg}\par \vspace{0.3cm}
+	\includegraphics[scale=0.25]{img/logo_FME.jpg}\par\vspace{1cm}
+	\centering
+	\vspace{1cm}
+	{\scshape\LARGE Bachleor Thesis \par}
+	\vspace{2cm}
+	{\scshape\LARGE \textbf{Multi-Agent Systems, a road to robot coperation} \par}
+	\vspace{1.5cm}
+	{\Large Jordi Bosch \par}
+	\vspace{1cm}
+	\begin{flushleft}
+	{\textbf{Degrees:}\par}
+	{Degree in Computer Science FIB \par}
+	{Degree in Mathematics FME \par }
+	
+	{\textbf{Advisors:}\par \par }
+	{Dra. Maria José Serna Iglesias \par}
+	{Dr. Luis Sentis Álvarez}
+	\end{flushleft}
+	\vfill
+
+	{\large February 2020}
+\end{titlepage}
+\begin{center}
+\section{Abstract}
+
+\end{center}
+
+Robots are becoming more and more involved in everyday tasks, helping people to clean, cook and manipulate all kinds of objects. Most of the time we picture ourselves one robot doing the different tasks, but, what would happen if we had several robots trying to do the same job?\newline\newline
+In this thesis we focus our goal in robot cooperation. Our objective is to explore how can different robots learn together in order to perform optimally a set of tasks. This may have lots of applications in the real world since we can have a set of heterogeneous robots, for the sake of simplicity(a drone and a terrestial robot) each one beneficing from the information the other one perceives and exploring an unkown terrain more fast.
+\newline \newline
+In this thesis we have set up a work space in which we are  able to deeply study the performance and the learning of two robots. We will face the problems that arise in the learning and will keep track of the solutions that we come up with.
+
+\newpage
+
+\tableofcontents
 \maketitle
 
 \section{Introduction}
+\section{Special thanks}
+This project wouldn't have been possible without ma nigros. My negro Erik Ferrando, my ciervo Marc Esquerranus il hombre annus and my Reggeatonero del MIT Eric Sipote.
 \section{Multi Agent Systems:an overview}
 \section{Reinforcement Learning aproach for 
 coordination}
@@ -72,4 +118,7 @@ $$V(S_{t}) \leftarrow V(S_{t}) + \alpha (r + \gamma V(s') - V(s))$$ Being $r$ an
 \subsubsection{Sarsa Algorithm}
 \subsubsection{Q Learning Algorithm}
 \subsubsection{Eligibility Traces}
+
+\section{Results}
+\section{Future Work}
 \end{document}

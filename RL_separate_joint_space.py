@@ -11,10 +11,10 @@ class QLearningAgent:
 		self.actions = actions
 		self.learning_rate = 0.01
 		self.discount_factor = 0.9
-		self.epsilon = 0.1
+		self.epsilon = 0.05
 		self.q_table = defaultdict(lambda: [0.0, 0.0, 0.0, 0.0,0.0,0.0,0.0,0.0])
 		self.elig = defaultdict(lambda: [0.0, 0.0, 0.0, 0.0,0.0,0.0,0.0,0.0])
-		self.landa = 0.7
+		self.landa = 1
 
 	# update q function with sample <s, a, r, s'>
 	def learn(self, state, action, reward, next_state):
@@ -93,7 +93,7 @@ if __name__ == "__main__":
 
 			state_2 = next_state_2
 			#env.print_value_all(agent_2.q_table_2)
-
+			#time.sleep(0.2)
 
 			# if episode ends, then break
 			resultat = np.logical_or(done_1,done_2)
